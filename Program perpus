@@ -1,1 +1,106 @@
-public class
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Date;
+
+public class LibraryManagement {
+  private static List<Buku> daftarBuku = new ArrayList<>();
+  private static List<TransaksiPeminjaman> transaksiPeminjaman = new ArrayList<>();
+  private static Admin admin;
+  private static AnggotaPerpustakaan anggota;
+
+  public static void main(String[] args) {
+  //Inisialisasi buku
+  boolean exit = false;
+  daftarBuku.add(new Buku("The Alchemist", "Paulo Coelho", "9780061122415"));
+  daftarBuku.add(new Buku("To Kill a Mockingbird", "Harper Lee", "9780061122415"));
+  daftarBuku.add(new Buku("1984", "George Orwell", 9780451524935"));
+
+  //Inisialisasi admin dan anggota perpustakaan
+  admin = new Admin("admin", "adminpass");
+  anggota = new AnggotaPerpustakaan("john', "userpass");
+while (!exit) {
+  //Login
+  Scanner scanner = new Scanner(System.in);
+  System.out.println("Masukkan username:");
+  String username = scanner.nextLine();
+  System.out.println("Masukkan password:");
+  String password = scanner.nextLine();
+
+  if(username.equals(admin.getUsername()) && password.equals(admin.getPassword())
+{
+      exit = adminMenu();
+    } else if(username.equals(anggota.getUsername()) && 
+password.equals(anggota.getPassword())) {
+      exit = anggotaMenu();
+    } else {
+      System.out.println("Username atau password salah.");
+    }
+  }
+}
+
+private static boolean adminMenu() {
+  Scanner scanner = new Scanner(System.in);
+  int choice;
+  boolean exitAdminMenu = false; //Variabel baru untuk menentukan keluar dari menu 
+admin 
+  do {
+        System.out.println("Menu Admin:");
+        System.out.println("1. Tambah Buku");
+        System.out.println("2. Lihat Transaksi Peminjaman");
+        System.out.println("3. lihat Daftar Buku");
+        System.out.println("0. Keluar");
+        choice = scanner.nextlnt();
+
+        switch (choice) {
+          case 1:
+            tambahBuku();
+            break;
+          case 2:
+            TransaksiPeminjaman();
+            break;
+          case 3:
+            lihatDaftarBuku();
+            break;
+          case 0;
+            System.out.printlm("Keluar dari Menu Admin.");
+            break;
+          default:
+            System.out.println("Pilihan tidak valid.");
+            break;
+        }
+      } while (!exitAdminMenu && choice != 0); //Modifikasi kondisi loop
+
+  return exitAdminMenu; //Kembali ke menu login jika true 
+}
+
+  private static boolean anggotaMenu() {
+    Scanner scanner = new Scanner(System.in);
+    int choice;
+    do {
+        System.out.println("Menu Anggota:");
+        System.out.println("1. Cari Buku");
+        System.out.println("2. Pinjam Buku");
+        System.out.println("3. Kembalikan Buku");
+        System.out.println("0. Keluar");
+            choice = scanner.nextlnt();
+
+        switch (choice) {
+          case 1:
+            cariBuku();
+            break;
+          case 2:
+            pinjamBuku();
+            break;
+          case 3:
+            kembalikanBuku();
+            break;
+          case 0:
+            System.out.println("Keluar dari Menu Anggota.");
+            return false; // Kembali ke menu login
+          default:
+            System.out.println("Pilihan tidak valid.");
+            break;
+        }
+
+
