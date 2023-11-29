@@ -196,3 +196,126 @@ if (transaksiPeminjaman.isEmpty()) {
           System.out.println("Buku tidak ditemukan.");
       }
 }
+public static void kembalikanBuku(){
+//Logic untuk mengembalikan buku yang dipinjam
+System.out.println("Masukkan judul buku yang ingin dikembalikan:");
+Scanner scanner = new Scanner(Sysytem.in);
+String judul = scanner.nextLine();
+for (TransaksiPeminjaman transaksi : transaksiPeminjaman) {
+            if (transaksi.getAnggota().equals(anggota.getUsername()) && transaksi.getBuku().equalsIgnoreCase(judul)) {
+                transaksiPeminjaman.remove(transaksi);
+                for (Buku buku : daftarBuku) {
+                    if (buku.getJudul().equalsIgnoreCase(judul)) {
+                        buku.setStatusKetersedia(true);
+                        System.out.println("Buku '" + judul + "' berhasil dikembalikan.");
+                        break;
+                    }
+                }
+                return;
+            }
+        }
+        System.out.println("Anda belum meminjam buku '" + judul + "'.");
+    }
+private static String generateIDTransaksi(){
+//Logic untuk generate ID Transaksi
+    return "TRX" + (transaksiPeminjaman.size() + 1);
+    }
+}
+
+class Buku {
+    private String judul;
+    private String pengarang;
+    private String isbn;
+    private boolean statusKetersedia;
+
+    public Buku(String judul, String pengarang, String isbn){
+        this.judul = judul;
+        this.pengarang = pengarang;
+        this.isbn = isbn;
+        this.statusKetersedia = true;
+    }
+
+public String getJudul(){
+        return judul;
+}
+public String getPengarang(){
+        return pengarang;
+}
+public String getIsbn(){
+        return isbn;
+}
+public boolean isStatusKetersedia(){
+        return statusKetersedia;
+}
+
+class AnggotaPerpustakaan {
+    private String username;
+    private String password;
+
+    public AnggotaPerpustakaan(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}
+
+class Admin {
+    private String username;
+    private String password;
+    
+    public Admin(String username, String password(){
+    this.username = username;
+    this.password = password;
+    }
+    
+    public String getUsername(){
+        return username;
+    }
+    
+    public String getPassword(){
+        return password;
+    }
+}
+    
+    class TransaksiPeminjaman {
+    private String IDTransaksi;
+    private String anggota;
+    private String buku;
+    private Date tanggalPeminjaman;
+    private int durasi;
+    
+    public TransaksiPeminjaman(String IDTransaksi, String anggota, String buku, Date tanggalPeminjaman, int durasi(){
+    this.IDTransaksi = IDTransaksi;
+    this.anggota = anggota ;
+    this.buku = buku;
+    this.tanggalPeminjaman = tanggalPeminjaman;
+    this.durasi = durasi;
+    }
+    public String getIDTransaksi() {
+        return IDTransaksi;
+    }
+    
+    public String getanggota() {
+        return anggota;
+    }
+    
+    public String getBuku() {
+        return buku;
+    }
+    
+    public Date getTanggalPeminjaman() {
+        return tanggalPeminjaman;
+    }
+    
+    public int getDurasi() {
+        return durasi;
+    }
+}
+
