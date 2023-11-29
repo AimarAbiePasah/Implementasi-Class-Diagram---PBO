@@ -17,8 +17,8 @@ public class LibraryManagement {
   daftarBuku.add(new Buku("1984", "George Orwell", 9780451524935"));
 
   //Inisialisasi admin dan anggota perpustakaan
-  admin = new Admin("admin", "adminpass");
-  anggota = new AnggotaPerpustakaan("john', "userpass");
+  admin = new Admin("irfan", "irfan170204");
+  anggota = new AnggotaPerpustakaan("Adiska", "adiska123");
 while (!exit) {
   //Login
   Scanner scanner = new Scanner(System.in);
@@ -102,5 +102,97 @@ admin
             System.out.println("Pilihan tidak valid.");
             break;
         }
+  } while (choice != 0);
+  return true; // Kembali ke menu login
+}
+privaate static void lihatDaftarBuku() {
+System.out.println("Daftar Buku: ");
+if (daftarBuku.isEmpty()) {
+  System.out.println("Belum ada buku yang terdaftar. ");
+}else{
+  for (Buku buku : daftarBuku) {
+      System.out.println("Judul : " + buku.getJudul());
+      System.out.printlm("Pengarang : " + buku.getPengarang());
+      System.out.println("ISBN : " + buku.getIsbn());
+      System.out.println("Status Ketersediaan: " + (buku.isStatusKetersediaan () ? "Tersedia" : "Tidak tersedia"));
+      System.out.println();
+    }
+  }
+}
 
+  private static void tambahBuku() {
+    //Logic untuk menambahkan buku ke daftarBuku
+    System.out.println("Masukkan judul buku : ");
+    Scanner scanner = new Scanner(System.in);
+    String judul = scanner.nexLine();
+    System.out.println("Masukkan nama pengarang: ");
+    String pengarang = scanner.nexLine();
+    System.out.println("Masukkan ISBN : ");
+    String isbn = scanner.nexLine();
 
+    daftarBuku.add(new Buku(judul, pengarang, isbn));
+    System.out.println("Buku berhasil ditambahkan.");
+  }
+
+private static void TransaksiPeminjaman() {
+System.out.println("Daftar Transaksi Peminjaman : ");
+if (transaksiPeminjaman.isEmpty()) {
+    System.out.ptintln("Belum ada transaksi peminjaman.");
+}else {
+  for (TransaksiPeminjaman transaksi : transaksiPeminjaman) {
+      System.out.println("ID Transaksi : " + transaksi.getIDTransaksi());
+      System.out.println("Anggota : " + transaksi.getAnggota());
+      System.out.println("Buku : " + transaksi.getBuku());
+      System.out.println("Tanggal Peminjaman : " + transaksi.getTanggalPeminjaman());
+      System.out.println("Durasi: " + transaksi.getDurasi() + "Hari");
+      System.out.println();
+    }
+  }
+}
+
+  private static void cariBuku() {
+      // Logic untuk mencari buku dalam daftarBuku
+      System.out.println("Masukkan judul buku yang ingin dicari: ");
+      Scanner scanner = new Scanner(System.in);
+      String judul = scanner.nexLine();
+
+      boolean found = false;
+      for (Buku buku : daftarBuku) {
+          if (buku.getJudul().equalsIgnoreCase(judul)) {
+            found = true;
+            System.out.println("Buku ditemukan : " + buku.getJudul));
+            break;
+          }
+      }
+
+      if (!found) {
+          System.out.println("Buku tidak ditemukan.");
+      }
+  }
+
+  private static void pinjamBuku() {
+      // Logic untuk meminjam buku dari daftarBuku
+      System.out.println("Masukkan judul buku yang ingin dipinjam: ");
+      Scanner scanner = new Scanner (System.in);
+      String judul = scanner.nexLine();
+
+      boolean found = false;
+      for (Buku buku : daftarBuku) {
+          if (buku.getJudul ().equalsIgnoreCase(judul)) {
+            found = true;
+            if (buku.isSstatusKetersediaan() {
+                buku.setStatusKetersediaan(false);
+                System.out.println("Buku '" + buku.getJudul() + "' berhasil dipinjam.");
+                TransaksiPeminjaman transaksi = new TransaksiPeminjaman(generateIDTransaksi(), anggota.getUsername(), buku.getJudul(), new Date (), 4);
+                transaksiPeminjaman.add(transaksi);
+            }else {
+                System.out.println("Buku '" + buku.getJudul() + "' sedang tidak tersedia.");
+            }
+            break;
+          }
+      }
+
+      if (!found) {
+          System.out.println("Buku tidak ditemukan.");
+      }
+}
